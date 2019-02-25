@@ -1,0 +1,296 @@
+# Physical parameters
+
+material = rna    
+temperature[C] = 37.0    # optional units: C (default) or K
+trials = 1    
+seed = 50  
+
+# Sequence domains
+
+domain a1 = N8
+domain b1 = N8
+domain c1 = N8
+domain d1 = N11
+domain e1 = N8
+domain f1 = N8
+
+domain a2 = N8
+domain b2 = N8
+domain c2 = N8
+domain d2 = N11
+domain e2 = N8
+domain f2 = N8
+
+domain a3 = N8
+domain b3 = N8
+domain c3 = N8
+domain d3 = N11
+domain e3 = N8
+domain f3 = N8
+
+domain a4 = N8
+domain b4 = N8
+domain c4 = N8
+domain d4 = N11
+domain e4 = N8
+domain f4 = N8
+
+domain a5 = N8
+domain b5 = N8
+domain c5 = N8
+domain d5 = N11
+domain e5 = N8
+domain f5 = N8
+
+# Oligonucleotide strands
+strand A1 = c1* b1* a1*
+strand B1 = a1 b1 c1 d1* c1* b1* e1* f1*
+strand C1 = c1 d1 c1* b1* d1* 
+
+strand A2 = c2* b2* a2*
+strand B2 = a2 b2 c2 d2* c2* b2* e2* f2*
+strand C2 = c2 d2 c2* b2* d2* 
+
+strand A3 = c3* b3* a3*
+strand B3 = a3 b3 c3 d3* c3* b3* e3* f3*
+strand C3 = c3 d3 c3* b3* d3* 
+
+strand A4 = c4* b4* a4*
+strand B4 = a4 b4 c4 d4* c4* b4* e4* f4*
+strand C4 = c4 d4 c4* b4* d4* 
+
+strand A5 = c5* b5* a5*
+strand B5 = a5 b5 c5 d5* c5* b5* e5* f5*
+strand C5 = c5 d5 c5* b5* d5* 
+
+# On pathway complexes
+complex init1 = A1
+complex hairpin11 = B1
+complex hairpin12 = C1
+complex inter1 = A1 B1
+complex product1 = B1 C1
+
+complex init2 = A2
+complex hairpin21 = B2
+complex hairpin22 = C2
+complex inter2 = A2 B2
+complex product2 = B2 C2
+
+complex init2 = A2
+complex hairpin21 = B2
+complex hairpin22 = C2
+complex inter2 = A2 B2
+complex product2 = B2 C2
+
+complex init2 = A2
+complex hairpin21 = B2
+complex hairpin22 = C2
+complex inter2 = A2 B2
+complex product2 = B2 C2
+
+complex init2 = A2
+complex hairpin21 = B2
+complex hairpin22 = C2
+complex inter2 = A2 B2
+complex product2 = B2 C2
+
+# Structures of on pathway complexes
+init1.structure = U8 U8 U8
+hairpin11.structure = U8 D8 D8 U11 U8 U8
+hairpin12.structure = U8 D11 (U8 U8) 
+inter1.structure = D8 D8 D8 + U11 U8 U8 U8 U8
+product1.structure = U8 D8 D8 D11 D8 (U8 U8 U8 + ) U11
+
+init2.structure = U8 U8 U8
+hairpin21.structure = U8 D8 D8 U11 U8 U8
+hairpin22.structure = U8 D11 (U8 U8) 
+inter2.structure = D8 D8 D8 + U11 U8 U8 U8 U8
+product2.structure = U8 D8 D8 D11 D8 (U8 U8 U8 + ) U11
+
+init2.structure = U8 U8 U8
+hairpin21.structure = U8 D8 D8 U11 U8 U8
+hairpin22.structure = U8 D11 (U8 U8) 
+inter2.structure = D8 D8 D8 + U11 U8 U8 U8 U8
+product2.structure = U8 D8 D8 D11 D8 (U8 U8 U8 + ) U11
+
+init2.structure = U8 U8 U8
+hairpin21.structure = U8 D8 D8 U11 U8 U8
+hairpin22.structure = U8 D11 (U8 U8) 
+inter2.structure = D8 D8 D8 + U11 U8 U8 U8 U8
+product2.structure = U8 D8 D8 D11 D8 (U8 U8 U8 + ) U11
+
+init2.structure = U8 U8 U8
+hairpin21.structure = U8 D8 D8 U11 U8 U8
+hairpin22.structure = U8 D11 (U8 U8) 
+inter2.structure = D8 D8 D8 + U11 U8 U8 U8 U8
+product2.structure = U8 D8 D8 D11 D8 (U8 U8 U8 + ) U11
+
+# Tube 1: reactants
+tube t11 = init1 hairpin11 hairpin12
+t11.offtargets = {maxsize=2} - {inter1, product1}
+t11.init1.conc = 1e-8
+t11.hairpin11.conc = 1e-6
+t11.hairpin12.conc = 1e-6
+
+# Tube 2: intermediate
+tube t12 = inter1 hairpin12
+t12.offtargets = {maxsize=2} - {init1,product1}
+t12.inter1.conc = 1e-6
+t12.hairpin12.conc = 1e-6
+
+# Tube 3: products
+tube t13 = init1 product1
+t13.offtargets = {maxsize=2} 
+t13.init1.conc = 1e-8
+t13.product1.conc = 1e-6
+
+# Tube 1: reactants
+tube t21 = init2 hairpin21 hairpin22
+t21.offtargets = {maxsize=2} - {inter2, product2}
+t21.init2.conc = 1e-8
+t21.hairpin21.conc = 1e-6
+t21.hairpin22.conc = 1e-6
+
+# Tube 2: intermediate
+tube t22 = inter2 hairpin22
+t22.offtargets = {maxsize=2} - {init2,product2}
+t22.inter2.conc = 1e-6
+t22.hairpin22.conc = 1e-6
+
+# Tube 3: products
+tube t23 = init2 product2
+t23.offtargets = {maxsize=2} 
+t23.init2.conc = 1e-8
+t23.product2.conc = 1e-6
+
+# Tube 1: reactants
+tube t31 = init3 hairpin31 hairpin32
+t31.offtargets = {maxsize=2} - {inter2, product2}
+t31.init3.conc = 1e-8
+t31.hairpin31.conc = 1e-6
+t31.hairpin32.conc = 1e-6
+
+# Tube 2: intermediate
+tube t32 = inter3 hairpin32
+t32.offtargets = {maxsize=2} - {init2,product2}
+t32.inter3.conc = 1e-6
+t32.hairpin32.conc = 1e-6
+
+# Tube 3: products
+tube t33 = init3 product3
+t33.offtargets = {maxsize=2} 
+t33.init3.conc = 1e-8
+t33.product3.conc = 1e-6
+
+# Tube 1: reactants
+tube t41 = init2 hairpin21 hairpin22
+t41.offtargets = {maxsize=2} - {inter2, product2}
+t41.init4.conc = 1e-8
+t41.hairpin41.conc = 1e-6
+t41.hairpin42.conc = 1e-6
+
+# Tube 2: intermediate
+tube t42 = inter4 hairpin42
+t42.offtargets = {maxsize=2} - {init2,product2}
+t42.inter2.conc = 1e-6
+t42.hairpin22.conc = 1e-6
+
+# Tube 3: products
+tube t43 = init4 product4
+t43.offtargets = {maxsize=2} 
+t43.init2.conc = 1e-8
+t43.product2.conc = 1e-6
+
+# Tube 1: reactants
+tube t51 = init5 hairpin51 hairpin52
+t51.offtargets = {maxsize=2} - {inter5, product5}
+t51.init5.conc = 1e-8
+t51.hairpin51.conc = 1e-6
+t51.hairpin52.conc = 1e-6
+
+# Tube 2: intermediate
+tube t52 = inter5 hairpin52
+t52.offtargets = {maxsize=2} - {init5,product5}
+t52.inter5.conc = 1e-6
+t52.hairpin52.conc = 1e-6
+
+# Tube 3: products
+tube t53 = init5 product5
+t53.offtargets = {maxsize=2} 
+t53.init5.conc = 1e-8
+t53.product5.conc = 1e-6
+
+# Global crosstalk tube
+tube CrossTalk = \
+init1 hairpin11 hairpin12 \
+init2 hairpin21 hairpin22 \
+init3 hairpin31 hairpin32 \
+init4 hairpin41 hairpin42 \
+init5 hairpin51 hairpin52
+CrossTalk.init1.conc = 1e-8
+CrossTalk.init2.conc = 1e-8
+CrossTalk.init3.conc = 1e-8
+CrossTalk.init4.conc = 1e-8
+CrossTalk.init5.conc = 1e-8
+CrossTalk.hairpin11.conc = 1e-6
+CrossTalk.hairpin12.conc = 1e-6
+CrossTalk.hairpin21.conc = 1e-6
+CrossTalk.hairpin22.conc = 1e-6
+CrossTalk.hairpin31.conc = 1e-6
+CrossTalk.hairpin32.conc = 1e-6
+CrossTalk.hairpin41.conc = 1e-6
+CrossTalk.hairpin42.conc = 1e-6
+CrossTalk.hairpin51.conc = 1e-6
+CrossTalk.hairpin52.conc = 1e-6
+CrossTalk.offtargets = {maxsize=2} - \
+{inter1, inter2, inter3, inter4, inter5, \
+product1, product2, product3, product4, product5}
+
+# Prevent G-quadruplexes
+prevent = AAAA,CCCC,GGGG,UUUU
+
+# Constrain GC content
+similarity A1_m = S24
+A1.similarity[frac] A1_m = [0.45, 0.55]
+similarity B1_m = S57
+B1.similarity[frac] B1_m = [0.45, 0.55]
+similarity C1_m = S46
+C1.similarity[frac] C1_m = [0.45, 0.55]
+similarity A2_m = S24
+A2.similarity[frac] A2_m = [0.45, 0.55]
+similarity B2_m = S57
+B2.similarity[frac] B2_m = [0.45, 0.55]
+similarity C2_m = S46
+C2.similarity[frac] C2_m = [0.45, 0.55]
+similarity A3_m = S24
+A3.similarity[frac] A3_m = [0.45, 0.55]
+similarity B3_m = S57
+B3.similarity[frac] B3_m = [0.45, 0.55]
+similarity C3_m = S46
+C3.similarity[frac] C3_m = [0.45, 0.55]
+similarity A4_m = S24
+A4.similarity[frac] A4_m = [0.45, 0.55]
+similarity B4_m = S57
+B4.similarity[frac] B4_m = [0.45, 0.55]
+similarity C4_m = S46
+C4.similarity[frac] C4_m = [0.45, 0.55]
+similarity A5_m = S24
+A5.similarity[frac] A5_m = [0.45, 0.55]
+similarity B5_m = S57
+B5.similarity[frac] B5_m = [0.45, 0.55]
+similarity C5_m = S46
+C5.similarity[frac] C5_m = [0.45, 0.55]
+
+# Constrain init to appear in the mRNA for GFP
+#source gfp = \
+#auggugagcaagggcgaggagcuguucaccgggguggugcccauccuggu\
+#cgagcuggacggcgacguaaacggccacaaguucagcguguccggcgagg\
+#gcgagggcgaugccaccuacggcaagcugacccugaaguucaucugcacc\
+#accggcaagcugcccgugcccuggcccacccucgugaccacccugaccua\
+#cggcgugcagugcuucagccgcuaccccgaccacaugaagcagcacgacu\
+#ucuucaaguccgccaugcccgaaggcuacguccaggagcgcaccaucuuc\
+#uucaaggacgacggcaacuacaag
+#window X = c1* b1* a1*
+#X.source = gfp
+
+stop[%] = 5
